@@ -5,25 +5,30 @@
           v-for="whatsHappened in whatsHappenedItems"
           :key="whatsHappened.title">
         <h2 class="font-bold text-gray-800 text-md dark:text-white">{{ whatsHappened.title }}</h2>
-        <p class="text-xs text-gay-400">{{ whatsHappened.count }}</p>
+        <p class="text-xs text-gay-400 dark:text-white">{{ whatsHappened.count }}</p>
       </SidebarRightPreviewCardItem>
     </SidebarRightPreviewCard>
 
     <SidebarRightPreviewCard title="Who to follow">
       <SidebarRightPreviewCardItem
-          v-for="whoToFollow in whoToFollowItems"
+          v-for="(whoToFollow, index) in whoToFollowItems"
           :key="whoToFollow.name">
-        <div class="flex flex-row justify-between p-2">
+        <div class="flex items-center flex-row justify-between p-2">
           <div class="flex flex-row">
             <img
-                :src="whoToFollow.image"
+                :src="generateImageURL(index+ 1)"
                 :alt="whoToFollow.name"
                 class="w-10 h-10 rounded-full"
             />
             <div class="flex flex-col ml-2">
-              <h1 class="text-sm font-bold text-gray-900 :dark:text-white">{{ whoToFollow.name }}</h1>
-              <p class="">{{ whoToFollow.handle }}</p>
+              <h1 class="text-sm font-bold text-gray-900 dark:text-white">{{ whoToFollow.name }}</h1>
+              <p class="text-xs text-gray-400 dark:text-white">{{ whoToFollow.handle }}</p>
             </div>
+          </div>
+          <div class="flex h-full">
+            <button class="px-4 py-2 text-xs font-bold text-white dark:text-black bg-black dark:bg-white rounded-full">
+              Follow
+            </button>
           </div>
         </div>
 
@@ -52,15 +57,19 @@ const whoToFollowItems = ref([
   {
     name: "John Makefile",
     handle: "@johnMake",
-    image: "https://picsum.photos/200/200",
   },
   {
     name: "Ketty Onyx",
-    handle: "@kettyOnyx"
+    handle: "@kettyOnyx",
+
   },
   {
     name: "Matt Bree",
-    count: "@breeM"
+    handle: "@breeM",
   },
 ]);
+
+const generateImageURL = (index: number): string => {
+  return `https://picsum.photos/seed/${index}/200/200`;
+};
 </script>
